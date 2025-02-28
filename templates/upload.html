@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload File</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script>
+    <script>
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+        socket.on('processing_start', function() {
+            document.getElementById("status").innerHTML = "Processing started...";
+        });
+
+        socket.on('processing_complete', function(data) {
+            document.getElementById("status").innerHTML = data.message;
+            document.getElementById("download-link").innerHTML = `<a href="${data.file}" download>Download JSON</a>`;
+        });
+    </script>
+</head>
+<body>
+    <h1>Upload your PDF file</h1>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" required><br><br>
+        <button type="submit">Upload</button>
+    </form>
+    <p id="status"></p>
+    <p id="download-link"></p>
+</body>
+</html>
