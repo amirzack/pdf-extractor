@@ -42,7 +42,7 @@ def process_pdf(file_path, zipf_data):
         for idx, word in enumerate(all_words, start=1):
             zipf_value = zipf_data.get(word, 0)
             # Filter word with zipf value 
-            if zipf_value > 61:
+            if zipf_value > 68:
                 continue
             word_info.append({
                 'id': idx,
